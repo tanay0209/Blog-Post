@@ -1,6 +1,6 @@
 # blog_post
 
-A flutter project to read and post blogs.
+Blog Post is a flutter application integrated with Firebase which allows users to sign in using their gmails. Users can create and post blogs in the application and also view the blogs posted by other users.
 
 ## Getting Started
 
