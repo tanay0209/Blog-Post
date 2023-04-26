@@ -67,7 +67,6 @@ class _AuthScreenState extends State<AuthScreen> {
                                 _username = value!;
                               },
                               keyboardType: TextInputType.name,
-                              key: const ValueKey('username'),
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -89,7 +88,6 @@ class _AuthScreenState extends State<AuthScreen> {
                           _email = value!;
                         },
                         keyboardType: TextInputType.emailAddress,
-                        key: const ValueKey('email'),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -115,7 +113,6 @@ class _AuthScreenState extends State<AuthScreen> {
                         },
                         keyboardType: TextInputType.emailAddress,
                         obscureText: true,
-                        key: const ValueKey('password'),
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
