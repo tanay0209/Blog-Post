@@ -38,6 +38,9 @@ class _BlogDetailsState extends State<BlogDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print(FirebaseAuth.instance.currentUser!.uid);
+    print(widget.uid);
+
     return Scaffold(
       appBar: AppBar(
         actions: [
