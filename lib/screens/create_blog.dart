@@ -1,31 +1,26 @@
-import 'package:blog_post/home_screen.dart';
-import 'package:blog_post/provider.dart';
+import 'package:blog_post/styles.dart';
+import 'package:blog_post/utils/provider.dart';
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
-class EditBlog extends StatefulWidget {
-  final String uuid;
-  final String title;
-  final String description;
-  const EditBlog(
-      {required this.uuid,
-      required this.title,
-      required this.description,
-      super.key});
+class CreateBlog extends StatefulWidget {
+  const CreateBlog({super.key});
 
   @override
-  State<EditBlog> createState() => _EditBlogState();
+  State<CreateBlog> createState() => _CreateBlogState();
 }
 
-class _EditBlogState extends State<EditBlog> {
+class _CreateBlogState extends State<CreateBlog> {
   GlobalKey<FormState> formKey = GlobalKey();
   late String _title;
   late String _description;
+  Styles styles = Styles();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edit your Blog"),
+        title: const Text("Create A Blog"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -40,7 +35,6 @@ class _EditBlogState extends State<EditBlog> {
               child: Column(
                 children: [
                   TextFormField(
-                    initialValue: widget.title,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Field Cannot be empty';
@@ -53,8 +47,9 @@ class _EditBlogState extends State<EditBlog> {
                     },
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: const BorderSide()),
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: const BorderSide(),
+                      ),
                       labelText: "Blog Title",
                       labelStyle: GoogleFonts.baloo2(),
                     ),
@@ -63,7 +58,6 @@ class _EditBlogState extends State<EditBlog> {
                     height: 15,
                   ),
                   TextFormField(
-                    initialValue: widget.description,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Field Cannot be empty';
@@ -92,35 +86,32 @@ class _EditBlogState extends State<EditBlog> {
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(8.0),
-                            ),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8.0),
                           ),
-                          backgroundColor: Colors.purple,
-                          padding: const EdgeInsets.all(12)),
+                        ),
+                        backgroundColor: Theme.of(context).primaryColor,
+                        padding: const EdgeInsets.all(12),
+                      ),
                       onPressed: () async {
                         final validity = formKey.currentState!.validate();
                         FocusScope.of(context).unfocus();
                         if (validity) {
                           formKey.currentState!.save();
                           var response = await BlogProvider()
-                              .editBlog(widget.uuid, _title, _description);
-                          if (response.statusCode == 200) {
+                              .createBlog(_title, _description);
+                          if (response.statusCode == 201) {
                             dynamic snack = const SnackBar(
-                              content: Text('Blog Edited'),
+                              content: Text('Blog Created'),
                               duration: Duration(seconds: 3),
                             );
                             ScaffoldMessenger.of(context).showSnackBar(snack);
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const HomeScreen(),
-                              ),
-                            );
+                            Navigator.of(context).pop();
                           }
                         }
                       },
-                      child: const Text("Save"),
+                      child: const Text("Create Blog"),
                     ),
                   ),
                 ],

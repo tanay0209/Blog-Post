@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:blog_post/constants.dart';
-import 'package:blog_post/edit_blog.dart';
-import 'package:blog_post/provider.dart';
+import 'package:blog_post/screens/edit_blog.dart';
+import 'package:blog_post/styles.dart';
+import 'package:blog_post/utils/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,10 +26,11 @@ class BlogDetails extends StatefulWidget {
 
 class _BlogDetailsState extends State<BlogDetails> {
   BlogProvider blogProvider = BlogProvider();
+  Styles style = Styles();
   Random random = Random();
   List<Color> backgroundColor = [
-    const Color.fromARGB(255, 238, 143, 127),
-    const Color.fromARGB(255, 233, 174, 11),
+    Styles().orange,
+    Styles().yellow,
   ];
   randomColorSelector() {
     return backgroundColor[random.nextInt(backgroundColor.length)];
@@ -43,9 +45,9 @@ class _BlogDetailsState extends State<BlogDetails> {
               ? Container(
                   padding: const EdgeInsets.all(6),
                   child: IconButton(
-                    icon: const FaIcon(
+                    icon: FaIcon(
                       FontAwesomeIcons.pen,
-                      color: Colors.white,
+                      color: style.whiteColor,
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -108,7 +110,7 @@ class _BlogDetailsState extends State<BlogDetails> {
                           width: 150,
                           child: TextButton.icon(
                             style: ElevatedButton.styleFrom(
-                              foregroundColor: const Color(0xff7e549f),
+                              foregroundColor: style.purple,
                               padding: const EdgeInsets.all(8),
                             ),
                             icon: const FaIcon(

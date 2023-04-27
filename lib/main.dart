@@ -1,10 +1,12 @@
-import 'package:blog_post/auth_screen.dart';
-import 'package:blog_post/home_screen.dart';
-import 'package:blog_post/provider.dart';
+import 'package:blog_post/screens/home_screen.dart';
+import 'package:blog_post/styles.dart';
+import 'package:blog_post/utils/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+
+import 'authentication/auth_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +19,7 @@ class BlogPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Styles style = Styles();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -25,8 +28,9 @@ class BlogPost extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-            primarySwatch: Colors.purple,
-            primaryColor: const Color.fromARGB(255, 28, 136, 230)),
+          primarySwatch: style.primaryPurple,
+          primaryColor: style.blue,
+        ),
         debugShowCheckedModeBanner: false,
         home: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),

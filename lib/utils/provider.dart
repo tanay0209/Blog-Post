@@ -7,13 +7,13 @@ class BlogProvider extends ChangeNotifier {
   bool isLoading = true;
   List fetchedBlogs = [];
 
+  // API call for creating blog
   createBlog(String title, String description) async {
     var response = await http.post(
       Uri.parse("https://crudapi.co.uk/api/v1/Blog"),
       headers: {
         "Content-Type": "application/json",
-        "Authorization":
-            "Bearer 2AVcwvs1FFjxIIqghRiq-DRkiFl0eJJCX9RXp8Xeibq0PgEpkw"
+        "Authorization": "Bearer $apikey"
       },
       body: jsonEncode([
         {
@@ -27,13 +27,13 @@ class BlogProvider extends ChangeNotifier {
     return response;
   }
 
+  // API call for fetching blogs from database
   fetchBlogs() async {
     var response = await http.get(
       Uri.parse("https://crudapi.co.uk/api/v1/Blog"),
       headers: {
         "Content-Type": "application/json",
-        "Authorization":
-            "Bearer 2AVcwvs1FFjxIIqghRiq-DRkiFl0eJJCX9RXp8Xeibq0PgEpkw"
+        "Authorization": "Bearer $apikey"
       },
     );
     var data = jsonDecode(response.body);
@@ -42,26 +42,25 @@ class BlogProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // API call to delete a blog
   deleteBlog(String uuid) async {
     var response = await http
         .delete(Uri.parse("https://crudapi.co.uk/api/v1/Blog/$uuid"), headers: {
       "Content-Type": "application/json",
-      "Authorization":
-          "Bearer 2AVcwvs1FFjxIIqghRiq-DRkiFl0eJJCX9RXp8Xeibq0PgEpkw"
+      "Authorization": "Bearer $apikey"
     });
 
     notifyListeners();
     return response;
   }
 
+  // API call to edit an exisiting blog
   editBlog(String uuid, String title, String description) async {
-    
     var response = await http.put(
       Uri.parse("https://crudapi.co.uk/api/v1/Blog/$uuid"),
       headers: {
         "Content-Type": "application/json",
-        "Authorization":
-            "Bearer 2AVcwvs1FFjxIIqghRiq-DRkiFl0eJJCX9RXp8Xeibq0PgEpkw"
+        "Authorization": "Bearer $apikey"
       },
       body: jsonEncode({
         "title": title,

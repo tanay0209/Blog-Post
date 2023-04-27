@@ -1,8 +1,10 @@
-import 'package:blog_post/authentication.dart';
 import 'package:blog_post/screens/blog_details.dart';
 import 'package:blog_post/constants.dart';
 import 'package:blog_post/screens/create_blog.dart';
-import 'package:blog_post/provider.dart';
+import 'package:blog_post/styles.dart';
+import 'package:blog_post/utils/authentication.dart';
+import 'package:blog_post/utils/provider.dart';
+// ignore: unused_import
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,8 +18,6 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-List? blogs = [];
-
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
@@ -27,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Styles style = Styles();
+  List? blogs = [];
   Authentication authentication = Authentication();
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
           tooltip: "Create a New Blog",
-          child: const FaIcon(
+          child: FaIcon(
             FontAwesomeIcons.plus,
-            color: Colors.white,
+            color: style.whiteColor,
           ),
         ),
         appBar: AppBar(
@@ -81,10 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } else {
       return isLoading
-          ? const Scaffold(
+          ? Scaffold(
               body: Center(
                 child: CircularProgressIndicator(
-                  color: Colors.white,
+                  color: style.whiteColor,
                   strokeWidth: 4.0,
                 ),
               ),
@@ -100,9 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 tooltip: "Create a New Blog",
-                child: const FaIcon(
+                child: FaIcon(
                   FontAwesomeIcons.plus,
-                  color: Colors.white,
+                  color: style.whiteColor,
                 ),
               ),
               appBar: AppBar(
@@ -140,9 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                         child: Card(
-                          color: index % 2 == 0
-                              ? Color.fromARGB(255, 238, 143, 127)
-                              : Color.fromARGB(255, 233, 174, 11),
+                          color: index % 2 == 0 ? style.orange : style.yellow,
                           child: Column(
                             children: [
                               Container(
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Text(
                                   blogs![index]["title"],
                                   style: GoogleFonts.baloo2(
-                                    color: Colors.white,
+                                    color: style.whiteColor,
                                     fontSize: 22,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   maxLines: 2,
                                   softWrap: true,
                                   style: GoogleFonts.baloo2(
-                                      fontSize: 18, color: Colors.white),
+                                      fontSize: 18, color: style.whiteColor),
                                 ),
                               )
                             ],

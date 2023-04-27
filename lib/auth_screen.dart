@@ -1,10 +1,9 @@
-
 import 'package:blog_post/constants.dart';
+import 'package:blog_post/styles.dart';
+import 'package:blog_post/utils/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../utils/authentication.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -20,7 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
   late String _email;
   late String _password;
   late String _username;
-
+  Styles style = Styles();
   startAuthentication() {
     final validity = formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
@@ -129,11 +128,14 @@ class _AuthScreenState extends State<AuthScreen> {
                         width: MediaQuery.of(context).size.width,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8.0))),
-                              backgroundColor: const Color(0xff7e549f),
-                              padding: const EdgeInsets.all(12)),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8.0),
+                              ),
+                            ),
+                            backgroundColor: style.purple,
+                            padding: const EdgeInsets.all(12),
+                          ),
                           onPressed: () {
                             startAuthentication();
                           },
@@ -162,24 +164,24 @@ class _AuthScreenState extends State<AuthScreen> {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8.0),
-                                ),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8.0),
                               ),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 238, 143, 127),
-                              padding: const EdgeInsets.all(12)),
+                            ),
+                            backgroundColor: style.yellow,
+                            padding: const EdgeInsets.all(12),
+                          ),
                           child: isLoginPage
                               ? Text(
                                   "Sign Up",
                                   style: GoogleFonts.roboto(
-                                      fontSize: 18, color: Colors.white),
+                                      fontSize: 18, color: style.whiteColor),
                                 )
                               : Text(
                                   "Log In",
                                   style: GoogleFonts.roboto(
-                                      fontSize: 18, color: Colors.white),
+                                      fontSize: 18, color: style.whiteColor),
                                 ),
                         ),
                       ),
