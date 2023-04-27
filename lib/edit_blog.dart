@@ -1,16 +1,23 @@
+import 'package:blog_post/home_screen.dart';
 import 'package:blog_post/provider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
-class CreateBlog extends StatefulWidget {
-  const CreateBlog({super.key});
+class EditBlog extends StatefulWidget {
+  final String uuid;
+  final String title;
+  final String description;
+  const EditBlog(
+      {required this.uuid,
+      required this.title,
+      required this.description,
+      super.key});
 
   @override
-  State<CreateBlog> createState() => _CreateBlogState();
+  State<EditBlog> createState() => _EditBlogState();
 }
 
-class _CreateBlogState extends State<CreateBlog> {
+class _EditBlogState extends State<EditBlog> {
   GlobalKey<FormState> formKey = GlobalKey();
   late String _title;
   late String _description;
@@ -18,7 +25,7 @@ class _CreateBlogState extends State<CreateBlog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create A Blog"),
+        title: const Text("Edit your Blog"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,6 +40,7 @@ class _CreateBlogState extends State<CreateBlog> {
               child: Column(
                 children: [
                   TextFormField(
+                    initialValue: widget.title,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Field Cannot be empty';
@@ -55,6 +63,7 @@ class _CreateBlogState extends State<CreateBlog> {
                     height: 15,
                   ),
                   TextFormField(
+                    initialValue: widget.description,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Field Cannot be empty';
@@ -84,9 +93,11 @@ class _CreateBlogState extends State<CreateBlog> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0))),
-                          backgroundColor: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(8.0),
+                            ),
+                          ),
+                          backgroundColor: Colors.purple,
                           padding: const EdgeInsets.all(12)),
                       onPressed: () async {
                         final validity = formKey.currentState!.validate();
@@ -94,18 +105,22 @@ class _CreateBlogState extends State<CreateBlog> {
                         if (validity) {
                           formKey.currentState!.save();
                           var response = await BlogProvider()
-                              .createBlog(_title, _description);
-                          if (response.statusCode == 201) {
+                              .editBlog(widget.uuid, _title, _description);
+                          if (response.statusCode == 200) {
                             dynamic snack = const SnackBar(
-                              content: Text('Blog Created'),
+                              content: Text('Blog Edited'),
                               duration: Duration(seconds: 3),
                             );
                             ScaffoldMessenger.of(context).showSnackBar(snack);
-                            Navigator.of(context).pop();
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const HomeScreen(),
+                              ),
+                            );
                           }
                         }
                       },
-                      child: const Text("Create Blog"),
+                      child: const Text("Save"),
                     ),
                   ),
                 ],

@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Provider.of<BlogProvider>(context, listen: false).fetchBlogs();
     bool isLoading = Provider.of<BlogProvider>(context, listen: true).isLoading;
     blogs = Provider.of<BlogProvider>(context, listen: true).fetchedBlogs;
-    userId = FirebaseAuth.instance.currentUser!.uid;
+
     if (blogs!.isEmpty) {
       return Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -140,7 +140,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                         child: Card(
-                          color: Colors.purple,
+                          color: index % 2 == 0
+                              ? Color.fromARGB(255, 238, 143, 127)
+                              : Color.fromARGB(255, 233, 174, 11),
                           child: Column(
                             children: [
                               Container(
@@ -149,9 +151,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Text(
                                   blogs![index]["title"],
                                   style: GoogleFonts.baloo2(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600),
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -160,6 +163,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: w,
                                 child: Text(
                                   blogs![index]["description"],
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  softWrap: true,
                                   style: GoogleFonts.baloo2(
                                       fontSize: 18, color: Colors.white),
                                 ),

@@ -68,11 +68,13 @@ class _AuthScreenState extends State<AuthScreen> {
                               },
                               keyboardType: TextInputType.name,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: const BorderSide()),
-                                  labelText: "Enter Username",
-                                  labelStyle: GoogleFonts.roboto()),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: const BorderSide(),
+                                ),
+                                labelText: "Enter Username",
+                                labelStyle: GoogleFonts.roboto(),
+                              ),
                             )
                           : Container(),
                       const SizedBox(height: 20),
@@ -128,7 +130,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(8.0))),
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: const Color(0xff7e549f),
                               padding: const EdgeInsets.all(12)),
                           onPressed: () {
                             startAuthentication();
@@ -149,23 +151,35 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            isLoginPage = !isLoginPage;
-                          });
-                        },
-                        child: isLoginPage
-                            ? Text(
-                                "Not a member? Sign Up",
-                                style: GoogleFonts.roboto(
-                                    fontSize: 14, color: Colors.black),
-                              )
-                            : Text(
-                                "Already a Member? Log In",
-                                style: GoogleFonts.roboto(
-                                    fontSize: 14, color: Colors.black),
+                      SizedBox(
+                        width: double.maxFinite,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              isLoginPage = !isLoginPage;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8.0),
+                                ),
                               ),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 238, 143, 127),
+                              padding: const EdgeInsets.all(12)),
+                          child: isLoginPage
+                              ? Text(
+                                  "Sign Up",
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 18, color: Colors.white),
+                                )
+                              : Text(
+                                  "Log In",
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                        ),
                       ),
                       isLoginPage
                           ? Container()

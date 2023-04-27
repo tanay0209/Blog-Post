@@ -41,4 +41,34 @@ class BlogProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  deleteBlog(String uuid) async {
+    var response = await http
+        .delete(Uri.parse("https://crudapi.co.uk/api/v1/Blog/$uuid"), headers: {
+      "Content-Type": "application/json",
+      "Authorization":
+          "Bearer 2AVcwvs1FFjxIIqghRiq-DRkiFl0eJJCX9RXp8Xeibq0PgEpkw"
+    });
+
+    notifyListeners();
+    return response;
+  }
+
+  editBlog(String uuid, String title, String description) async {
+    
+    var response = await http.put(
+      Uri.parse("https://crudapi.co.uk/api/v1/Blog/$uuid"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":
+            "Bearer 2AVcwvs1FFjxIIqghRiq-DRkiFl0eJJCX9RXp8Xeibq0PgEpkw"
+      },
+      body: jsonEncode({
+        "title": title,
+        "description": description,
+      }),
+    );
+    notifyListeners();
+    return response;
+  }
 }
