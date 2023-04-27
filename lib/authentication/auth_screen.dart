@@ -1,4 +1,4 @@
-import 'package:blog_post/authentication.dart';
+
 import 'package:blog_post/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,7 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       !isLoginPage
                           ? TextFormField(
                               validator: (value) {
-                                if (value!.isEmpty || value.length < 6) {
+                                if (value!.isEmpty) {
                                   return 'Incorrect Username';
                                 } else {
                                   return null;
@@ -181,20 +181,23 @@ class _AuthScreenState extends State<AuthScreen> {
                                 ),
                         ),
                       ),
-                      isLoginPage
-                          ? Container()
-                          : SizedBox(
-                              child: TextButton.icon(
-                                icon: const FaIcon(FontAwesomeIcons.google),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(12),
-                                ),
-                                onPressed: () {
-                                  authentication.signInWithGoogle();
-                                },
-                                label: const Text("Sign In With Google"),
-                              ),
-                            )
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        child: TextButton.icon(
+                          icon: const FaIcon(FontAwesomeIcons.google),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(12),
+                          ),
+                          onPressed: () {
+                            authentication.signInWithGoogle();
+                          },
+                          label: isLoginPage
+                              ? const Text("Log In With Google")
+                              : const Text("Sign In With Google"),
+                        ),
+                      )
                     ],
                   ),
                 )

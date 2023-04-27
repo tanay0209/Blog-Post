@@ -1,7 +1,7 @@
 import 'package:blog_post/authentication.dart';
-import 'package:blog_post/blog_details.dart';
+import 'package:blog_post/screens/blog_details.dart';
 import 'package:blog_post/constants.dart';
-import 'package:blog_post/create_blog.dart';
+import 'package:blog_post/screens/create_blog.dart';
 import 'package:blog_post/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
